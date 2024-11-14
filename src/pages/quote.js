@@ -14,7 +14,7 @@ const Dashboard = () => {
 
     const fetchQuotes = async () => {
         try {
-            const response = await fetch('http://localhost:1337/api/quotes', {
+            const response = await fetch('https://transfer-server.vercel.app:1337/api/quotes', {
                 headers: {
                     'X-access-token': localStorage.getItem('token'),
                 },
@@ -60,7 +60,7 @@ const Dashboard = () => {
         if (!newQuote.trim()) return;
 
         try {
-            const response = await fetch('http://localhost:1337/api/quote', {
+            const response = await fetch('https://transfer-server.vercel.app:1337/api/quote', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ const Dashboard = () => {
     const handleDeleteQuote = async (quoteObj, e) => {
         e.stopPropagation(); // Prevent triggering the quote click
         try {
-            const response = await fetch(`http://localhost:1337/api/quote/${encodeURIComponent(quoteObj.id)}`, {
+            const response = await fetch(`https://transfer-server.vercel.app:1337/api/quote/${encodeURIComponent(quoteObj.id)}`, {
                 method: 'DELETE',
                 headers: {
                     'X-access-token': localStorage.getItem('token'),
@@ -117,7 +117,7 @@ const Dashboard = () => {
         if (!editQuote.trim()) return;
 
         try {
-            const response = await fetch(`http://localhost:1337/api/quote/${encodeURIComponent(editingId)}`, {
+            const response = await fetch(`https://transfer-server.vercel.app:1337/api/quote/${encodeURIComponent(editingId)}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
