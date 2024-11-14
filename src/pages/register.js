@@ -14,7 +14,7 @@ function App() {
 
   async function registeruser(event) {
     event.preventDefault()
-    const response = await fetch('https://transfer-server.vercel.app:1337/api/register', {
+    const response = await fetch('https://transfer-server.vercel.app/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
