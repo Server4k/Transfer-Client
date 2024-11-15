@@ -22,17 +22,40 @@ const Dashboard = () => {
 
             const data = await response.json();
             if (data.status === 'ok') {
-                setQuotes(data.quotes.map(quote => ({
-                    id: quote._id || Math.random().toString(36).substr(2, 9),
-                    text: quote
-                })));
+                // Transform the quotes data to ensure consistent structure
+                const transformedQuotes = data.quotes.map(quote => {
+                    // Handle both possible data structures
+                    if (typeof quote === 'string') {
+                        return {
+                            id: Math.random().toString(36).substr(2, 9),
+                            text: quote
+                        };
+                    }
+                    // If quote is an object with _id and text properties
+                    if (quote._id && quote.text) {
+                        return {
+                            id: quote._id.toString(),
+                            text: quote.text
+                        };
+                    }
+                    // If quote is an object with text property
+                    return {
+                        id: quote._id?.toString() || Math.random().toString(36).substr(2, 9),
+                        text: quote.text || quote
+                    };
+                });
+                setQuotes(transformedQuotes);
             } else {
                 alert(data.error);
             }
         } catch (error) {
+            console.error('Error fetching quotes:', error);
             alert('Error fetching quotes');
         }
     };
+
+    // Rest of the component remains the same...
+    // (Keep all other functions and the return statement as they were)
 
     useEffect(() => {
         const token = localStorage.getItem('token');
